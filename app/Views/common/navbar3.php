@@ -16,7 +16,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= base_url('lectura/inicioL')?>">💻¡Bienvenido!🦉</a>
+                    <a class="nav-link" href="<?= base_url('lectura/inicioL')?>">💻Inicio🦉</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="<?= base_url('lectura/equiposL')?>">Equipos 
@@ -97,13 +97,8 @@ button {
 }
 
 
-button:hover:after {
-    opacity: 1;
-    right: 1vw; /* Utiliza 1% del ancho de la ventana como posición desde el borde derecho en el hover */
-}
-
 .navbar-custom {
-    background-color: #000000;
+    background-color: #2728C0; /* Nuevo color de fondo */
 }
 
 .modal {
@@ -199,10 +194,32 @@ button:hover:after {
     margin-top: 20px;
     text-align: center;
 }
-
-
 </style>
 
+<script>
+    function confirmLogout() {
+        if (confirm("¿Desea finalizar la sesión? 😢")) {
+            alert("Ha cerrado sesión exitosamente. ¡Hasta pronto! 👋");
+            window.location.href = "<?= base_url('/salir') ?>";
+        } else {
+            return false;
+        }
+    }
+    
+    // Función para adaptar la barra de navegación al cambio de tamaño de ventana
+    function adaptNavbar() {
+        var navbar = document.querySelector('.navbar-collapse');
+        if (window.innerWidth < 992) {
+            navbar.classList.add('show');
+        } else {
+            navbar.classList.remove('show');
+        }
+    }
+    
+    // Llama a la función adaptNavbar cuando se carga la página y cuando se cambia el tamaño de la ventana
+    window.addEventListener('load', adaptNavbar);
+    window.addEventListener('resize', adaptNavbar);
+</script>
 
 </body>
 </html>

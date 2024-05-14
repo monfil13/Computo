@@ -43,14 +43,8 @@ button {
     position: relative;
 }
 
-
-button:hover:after {
-    opacity: 1;
-    right: 1vw; /* Utiliza 1% del ancho de la ventana como posición desde el borde derecho en el hover */
-}
-
 .navbar-custom {
-    background-color: #000000;
+background-color: #2728C0; /* Nuevo color de fondo */
 }
 
 .modal {
@@ -200,14 +194,18 @@ button:hover:after {
     }
     
     // Función para adaptar la barra de navegación al cambio de tamaño de ventana
-    window.addEventListener('resize', function() {
+    function adaptNavbar() {
         var navbar = document.querySelector('.navbar-collapse');
         if (window.innerWidth < 992) {
             navbar.classList.add('show');
         } else {
             navbar.classList.remove('show');
         }
-    });
+    }
+    
+    // Llama a la función adaptNavbar cuando se carga la página y cuando se cambia el tamaño de la ventana
+    window.addEventListener('load', adaptNavbar);
+    window.addEventListener('resize', adaptNavbar);
 </script>
 
 

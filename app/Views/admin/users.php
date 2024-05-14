@@ -6,13 +6,14 @@
     <title>Usuarios</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css"> <!-- Agrega tu archivo CSS personalizado -->
+    <link rel="stylesheet" href="style2.css"> <!-- Agrega tu archivo CSS personalizado -->
 </head>
 <body>
 <h2 align="center">Usuarios</h2>
     <div class="section" align="center">
-        <button onclick="openAddUserModal()" class="btn btn-primary">Agregar Usuario</button>
-        <a href="inicio" class="btn btn-success">Volver al menú</a>
+        <button onclick="openAddUserModal()" class="btn btn-info">Agregar Usuario</button>
+        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#searchModal">Buscar</button>
+        <a href="<?= base_url('admin/inicio') ?>" class="btn btn-success">Volver al menú</a>
         <h3> </h3>
         <!-- Contenedor para las tarjetas de usuarios -->
         <div class="card-container">
@@ -37,8 +38,37 @@
                 </div>
             <?php endforeach; ?>
         </div>
+<!-- Paginación -->
+<div class="pagination" style="button-align: center;">
+    <?= $pager->links() ?>
+</div>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Inicializar los componentes de Bootstrap
+    var myModal = new bootstrap.Modal(document.getElementById('searchModal'));
+</script>
+
+<!-- Modal de búsqueda -->
+<div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="searchModalLabel">Buscar Usuarios</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="<?= base_url('admin/users/search') ?>" method="get">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="search" placeholder="Buscar usuarios">
+                        <button type="submit" class="btn btn-primary">Buscar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
+</div>
+
 
     <!-- Modal para agregar usuario -->
     <div id="addUserModal" class="modal">

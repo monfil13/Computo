@@ -12,13 +12,11 @@
     <style>
         body {
             background: #ffffff; /* Blanco */
-color: #000000; /* Negro */
-
-}
+            color: #000000; /* Negro */
+        }
         .container {
             margin-top: 100px;
         }
-
         .form-control {
             background-color: #ffffff; /* Blanco */
             color: #ffffff; /* Blanco */
@@ -27,9 +25,8 @@ color: #000000; /* Negro */
             max-width: 300px; /* Ancho máximo del campo de entrada */
             margin: auto; /* Centrar horizontalmente */
         }
-
         .btn-primary {
-            background-color: #0056b3; /* Azul eléctrico más oscuro */
+            background-color: #2728C0; /* Nuevo color de fondo */
             border-color: #0056b3; /* Azul eléctrico más oscuro */
             font-size: 16px; /* Tamaño de fuente ligeramente reducido */
             width: 200px; /* Ancho del botón */
@@ -38,9 +35,20 @@ color: #000000; /* Negro */
             margin-left: auto; /* Centrar horizontalmente */
             margin-right: auto; /* Centrar horizontalmente */
         }
-
         label {
             font-size: 14px; /* Tamaño de fuente reducido para labels */
+        }
+        .logo {
+            width: 300px; /* Aumento del tamaño de la imagen */
+            display: block; /* Centrar la imagen horizontalmente */
+            margin: auto; /* Centrar la imagen horizontalmente */
+        }
+        .text-center-container {
+            text-align: center; /* Centrar el texto horizontalmente */
+            margin-bottom: 20px; /* Espacio entre el texto y el formulario */
+        }
+        .form-group {
+            text-align: center; /* Centrar el contenido horizontalmente */
         }
     </style>
 </head>
@@ -71,17 +79,24 @@ color: #000000; /* Negro */
 
 <div class="container">
     <div class="row">
-        <div class="col-sm-12 text-center">
+        <div class="col-md-6">
             <!-- UPN Logo -->
-            <img src="upn.jpg" alt="UPN Logo" style="width: 195px;"> <!-- Tamaño de la imagen -->
-            <h2 class="mt-3">Inicio de Sesión</h2>
-            <p>Centro de Cómputo UPN 212 Teziutlán</p>
-            <div class="col-sm-12 text-center">
+            <img src="upn.jpg" alt="UPN Logo" width="400">
+        </div>
+        <div class="col-md-6">
+            <div class="text-center-container">
+                <h2 class="mt-3">Inicio de Sesión</h2>
+                <p>Centro de Cómputo UPN 212 Teziutlán</p>
+            </div>
             <form action="<?php echo base_url('/login') ?>" method="POST">
-                <label for="usuario" class="mt-3">Usuario</label> <!-- Aumento del espacio entre la imagen y el label -->
-                <input type="text" name="usuario" class="form-control" required="">
-                <label for="password">Contraseña</label>
-                <input type="password" name="password" class="form-control" required="">
+                <div class="form-group">
+                    <label for="usuario" class="mt-3">Usuario</label> <!-- Aumento del espacio entre la imagen y el label -->
+                    <input type="text" name="usuario" class="form-control" required="">
+                </div>
+                <div class="form-group">
+                    <label for="password">Contraseña</label>
+                    <input type="password" name="password" class="form-control" required="">
+                </div>
                 <br>
                 <button class="btn btn-primary">Acceder</button> <!-- Aumento del espacio entre el campo de contraseña y el botón -->
             </form>

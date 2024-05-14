@@ -27,9 +27,14 @@ class UserController extends BaseController
         return redirect()->to(base_url('/'));
     }
 
-        echo view('common/navbar');
-        $data['users'] = $this->userModel->findAll();
-        return view('admin/users', $data);
+    $pager = \Config\Services::pager();
+    $data = [
+        'users' => $this->userModel->paginate(6), // 6 registros por página
+        'pager' => $this->userModel->pager,
+    ];
+
+    echo view('common/navbar');
+    echo view('admin/users', $data);
     }
 
     public function store()
@@ -91,4 +96,28 @@ class UserController extends BaseController
 
         return redirect()->to(base_url('admin/users'));
     }
+
+    public function search()
+{
+    $searchTerm = $this->request->getVar('search'); // Obtener el término de búsqueda del formulario
+
+    // Realizar la búsqueda en el modelo y configurar la paginación
+    $data['users'] = $this->userModel
+    ->like('nombre', $searchTerm)
+    ->orLike('apellido', $searchTerm)
+    ->orLike('telefono', $searchTerm)
+    ->orLike('correo', $searchTerm)
+    ->orLike('usuario', $searchTerm)
+    ->orLike('contraseña', $searchTerm)
+    ->orLike('rol', $searchTerm)
+    ->paginate(10);
+
+    // Pasar los resultados paginados a la vista
+    $data['pager'] = $this->userModel->pager;
+
+    // Pasar los resultados a la vista
+    echo view('common/navbar');
+    echo view('admin/users', $data);
+}
+
 }

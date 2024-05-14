@@ -20,6 +20,7 @@ use App\Http\Controllers\UserController;
     $routes->post('admin/users/store', 'UserController::store');
     $routes->get('admin/users/delete/(:num)', 'UserController::delete/$1');
     $routes->post('admin/users/update', 'UserController::update');
+    $routes->get('admin/users/search', 'UserController::search');
     
     $routes->get('admin/proveedores', 'ProveedoresController::index');
     $routes->post('admin/proveedores/store', 'ProveedoresController::store');
