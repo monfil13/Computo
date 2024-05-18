@@ -137,3 +137,8 @@ button:hover:after {
     margin-top: 20px;
     text-align: center;
 }
+
+.card.border-primary {
+    border-width: 3px; /* Establecemos el grosor del borde */
+    border-color: #2728C0; /* Color del borde */
+}

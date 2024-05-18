@@ -10,40 +10,40 @@ class UserController extends BaseController
 
     public function __construct()
     {
-            // Verificar si el usuario tiene permisos de administrador
-    if (session('type') != 'admin') {
-        // Mostrar un mensaje de error o redirigir a la página de inicio
-        return redirect()->to(base_url('/'));
-    }
+        // Verificar si el usuario tiene permisos de administrador
+        if (session('type') != 'admin') {
+            // Mostrar un mensaje de error o redirigir a la página de inicio
+            return redirect()->to(base_url('/'));
+        }
 
         $this->userModel = new UserModel();
     }
 
     public function index()
     {
-            // Verificar si el usuario tiene permisos de administrador
-    if (session('type') != 'admin') {
-        // Mostrar un mensaje de error o redirigir a la página de inicio
-        return redirect()->to(base_url('/'));
-    }
+        // Verificar si el usuario tiene permisos de administrador
+        if (session('type') != 'admin') {
+            // Mostrar un mensaje de error o redirigir a la página de inicio
+            return redirect()->to(base_url('/'));
+        }
 
-    $pager = \Config\Services::pager();
-    $data = [
-        'users' => $this->userModel->paginate(6), // 6 registros por página
-        'pager' => $this->userModel->pager,
-    ];
+        $pager = \Config\Services::pager();
+        $data = [
+            'users' => $this->userModel->paginate(6), // 6 registros por página
+            'pager' => $this->userModel->pager,
+        ];
 
-    echo view('common/navbar');
-    echo view('admin/users', $data);
+        echo view('common/navbar');
+        echo view('admin/users', $data);
     }
 
     public function store()
     {
-            // Verificar si el usuario tiene permisos de administrador
-    if (session('type') != 'admin') {
-        // Mostrar un mensaje de error o redirigir a la página de inicio
-        return redirect()->to(base_url('/'));
-    }
+        // Verificar si el usuario tiene permisos de administrador
+        if (session('type') != 'admin') {
+            // Mostrar un mensaje de error o redirigir a la página de inicio
+            return redirect()->to(base_url('/'));
+        }
 
         $data = [
             'nombre' => $this->request->getPost('nombre'),
@@ -62,11 +62,11 @@ class UserController extends BaseController
 
     public function update()
     {
-            // Verificar si el usuario tiene permisos de administrador
-    if (session('type') != 'admin') {
-        // Mostrar un mensaje de error o redirigir a la página de inicio
-        return redirect()->to(base_url('/'));
-    }
+        // Verificar si el usuario tiene permisos de administrador
+        if (session('type') != 'admin') {
+            // Mostrar un mensaje de error o redirigir a la página de inicio
+            return redirect()->to(base_url('/'));
+        }
 
         $data = [
             'idUsuario' => $this->request->getPost('idUsuario'),
@@ -86,11 +86,11 @@ class UserController extends BaseController
 
     public function delete($id)
     {
-            // Verificar si el usuario tiene permisos de administrador
-    if (session('type') != 'admin') {
-        // Mostrar un mensaje de error o redirigir a la página de inicio
-        return redirect()->to(base_url('/'));
-    }
+        // Verificar si el usuario tiene permisos de administrador
+        if (session('type') != 'admin') {
+            // Mostrar un mensaje de error o redirigir a la página de inicio
+            return redirect()->to(base_url('/'));
+        }
 
         $this->userModel->delete($id);
 
@@ -98,26 +98,25 @@ class UserController extends BaseController
     }
 
     public function search()
-{
-    $searchTerm = $this->request->getVar('search'); // Obtener el término de búsqueda del formulario
+    {
+        $searchTerm = $this->request->getVar('search'); // Obtener el término de búsqueda del formulario
 
-    // Realizar la búsqueda en el modelo y configurar la paginación
-    $data['users'] = $this->userModel
-    ->like('nombre', $searchTerm)
-    ->orLike('apellido', $searchTerm)
-    ->orLike('telefono', $searchTerm)
-    ->orLike('correo', $searchTerm)
-    ->orLike('usuario', $searchTerm)
-    ->orLike('contraseña', $searchTerm)
-    ->orLike('rol', $searchTerm)
-    ->paginate(10);
+        // Realizar la búsqueda en el modelo y configurar la paginación
+        $data['users'] = $this->userModel
+            ->like('nombre', $searchTerm)
+            ->orLike('apellido', $searchTerm)
+            ->orLike('telefono', $searchTerm)
+            ->orLike('correo', $searchTerm)
+            ->orLike('usuario', $searchTerm)
+            ->orLike('contraseña', $searchTerm)
+            ->orLike('rol', $searchTerm)
+            ->paginate(10);
 
-    // Pasar los resultados paginados a la vista
-    $data['pager'] = $this->userModel->pager;
+        // Pasar los resultados paginados a la vista
+        $data['pager'] = $this->userModel->pager;
 
-    // Pasar los resultados a la vista
-    echo view('common/navbar');
-    echo view('admin/users', $data);
-}
-
+        // Pasar los resultados a la vista
+        echo view('common/navbar');
+        echo view('admin/users', $data);
+    }
 }

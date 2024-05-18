@@ -12,11 +12,11 @@ class MantenimientoController extends BaseController
 
     public function __construct()
     {
-            // Verificar si el usuario tiene permisos de administrador
-    if (session('type') != 'admin') {
-        // Mostrar un mensaje de error o redirigir a la página de inicio
-        return redirect()->to(base_url('/'));
-    }
+        // Verificar si el usuario tiene permisos de administrador
+        if (session('type') != 'admin') {
+            // Mostrar un mensaje de error o redirigir a la página de inicio
+            return redirect()->to(base_url('/'));
+        }
 
         $this->mantenimientoModel = new MantenimientoModel();
         $this->equipoModel = new EquipoModel();
@@ -24,12 +24,16 @@ class MantenimientoController extends BaseController
 
     public function index()
     {
-            // Verificar si el usuario tiene permisos de administrador
-    if (session('type') != 'admin') {
-        // Mostrar un mensaje de error o redirigir a la página de inicio
-        return redirect()->to(base_url('/'));
-    }
-
+        // Verificar si el usuario tiene permisos de administrador
+        if (session('type') != 'admin') {
+            // Mostrar un mensaje de error o redirigir a la página de inicio
+            return redirect()->to(base_url('/'));
+        }
+        $pager = \Config\Services::pager();
+        $data = [
+            'mantenimiento' => $this->mantenimientoModel->paginate(6), // 6 registros por página
+            'pager' => $this->mantenimientoModel->pager,
+        ];
         echo view('common/navbar');
         $data['mantenimiento'] = $this->mantenimientoModel->findAllWithEquipo();
         $data['equipos'] = $this->equipoModel->findAll();
@@ -38,11 +42,11 @@ class MantenimientoController extends BaseController
 
     public function store()
     {
-            // Verificar si el usuario tiene permisos de administrador
-    if (session('type') != 'admin') {
-        // Mostrar un mensaje de error o redirigir a la página de inicio
-        return redirect()->to(base_url('/'));
-    }
+        // Verificar si el usuario tiene permisos de administrador
+        if (session('type') != 'admin') {
+            // Mostrar un mensaje de error o redirigir a la página de inicio
+            return redirect()->to(base_url('/'));
+        }
 
         $data = [
             'idEquipo' => $this->request->getPost('idEquipo'),
@@ -59,11 +63,11 @@ class MantenimientoController extends BaseController
 
     public function update()
     {
-            // Verificar si el usuario tiene permisos de administrador
-    if (session('type') != 'admin') {
-        // Mostrar un mensaje de error o redirigir a la página de inicio
-        return redirect()->to(base_url('/'));
-    }
+        // Verificar si el usuario tiene permisos de administrador
+        if (session('type') != 'admin') {
+            // Mostrar un mensaje de error o redirigir a la página de inicio
+            return redirect()->to(base_url('/'));
+        }
 
         $data = [
             'idMantenimiento' => $this->request->getPost('idMantenimiento'),
@@ -81,13 +85,39 @@ class MantenimientoController extends BaseController
 
     public function delete($id)
     {
-            // Verificar si el usuario tiene permisos de administrador
-    if (session('type') != 'admin') {
-        // Mostrar un mensaje de error o redirigir a la página de inicio
-        return redirect()->to(base_url('/'));
-    }
+        // Verificar si el usuario tiene permisos de administrador
+        if (session('type') != 'admin') {
+            // Mostrar un mensaje de error o redirigir a la página de inicio
+            return redirect()->to(base_url('/'));
+        }
 
         $this->mantenimientoModel->delete($id);
         return redirect()->to(base_url('admin/mantenimiento'));
+    }
+
+    public function search()
+    {
+        $searchTerm = $this->request->getVar('search'); // Obtener el término de búsqueda del formulario
+
+        // Realizar la búsqueda en el modelo y configurar la paginación
+        $data['mantenimiento'] = $this->mantenimientoModel
+            ->select('mantenimiento.*, equipos.nombre AS nombreEquipo')
+            ->join('equipos', 'equipos.idEquipo = mantenimiento.idEquipo')
+            ->like('equipos.nombre', $searchTerm)
+            ->orLike('mantenimiento.tipo', $searchTerm)
+            ->orLike('mantenimiento.fechaMantenimiento', $searchTerm)
+            ->orLike('mantenimiento.fechaSalida', $searchTerm)
+            ->orLike('mantenimiento.fechaIngreso', $searchTerm)
+            ->orLike('mantenimiento.descripcion', $searchTerm)
+            ->orLike('equipos.nombre', $searchTerm)
+            ->paginate(10);
+
+        // Pasar los resultados paginados a la vista
+        $data['pager'] = $this->mantenimientoModel->pager;
+        $data['equipos'] = $this->equipoModel->findAll();
+
+        // Pasar los resultados a la vista
+        echo view('common/navbar');
+        echo view('admin/mantenimiento', $data);
     }
 }

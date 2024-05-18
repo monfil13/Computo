@@ -17,7 +17,7 @@ class App extends BaseConfig
      * E.g., http://example.com/
      */
     public string $baseURL = 'http://localhost:8080/';
-    //     public $baseURL = 'http://192.168.3.67/'; // Dirección IP de Servidor Ubuntu
+   //public string $baseURL = 'http://192.168.1.77/'; // Dirección IP de Servidor Ubuntu
 
     /**
      * Allowed Hostnames in the Site URL other than the hostname in the baseURL.

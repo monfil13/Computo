@@ -7,18 +7,20 @@
     <title>Proveedores</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="style2.css">
 </head>
 
 <body>
     <div class="section" align="center">
     <h2>Proveedores</h2>
-        <button onclick="openAddProveedorModal()" class="btn btn-primary">Agregar Proveedor</button>
-        <a href="inicio" class="btn btn-success">Volver al menú</a>
+        <button onclick="openAddProveedorModal()" class="btn btn-info">Agregar Proveedor</button>
+        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#searchModal">Buscar</button>
+        <a href="<?= base_url('admin/inicio') ?>" class="btn btn-success">Volver al menú</a>
 <h3> </h3>
         <!-- Contenedor para las tarjetas de proveedores -->
         <div class="card-container">
             <?php foreach ($proveedores as $proveedor): ?>
-                <div class="card">
+                <div class="card border-primary"> <!-- Agregamos la clase "border-primary" para establecer el color del borde -->
                     <div class="card-body">
                         <h5 class="card-title"><?= $proveedor['nombre'] ?></h5>
                         <p class="card-text">
@@ -28,13 +30,44 @@
                         </p>
                         <div class="btn-group">
                             <button onclick="editProveedorModal(<?= $proveedor['idProveedor'] ?>, '<?= $proveedor['nombre'] ?>', '<?= $proveedor['telefono'] ?>', '<?= $proveedor['correo'] ?>', '<?= $proveedor['direccion'] ?>')" class="btn btn-primary">Editar</button>
-                            <a href="<?= base_url('proveedores/delete/' . $proveedor['idProveedor']) ?>" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este proveedor?')">Eliminar</a>
+                            <a href="<?= base_url('admin/proveedores/delete/' . $proveedor['idProveedor']) ?>" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este proveedor?')">Eliminar</a>
                         </div>
                     </div>
                 </div>
             <?php endforeach; ?>
         </div>
     </div>
+<!-- Paginación -->
+<div class="pagination" style="button-align: center;">
+    <?= $pager->links() ?>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Inicializar los componentes de Bootstrap
+    var myModal = new bootstrap.Modal(document.getElementById('searchModal'));
+</script>
+
+<!-- Modal de búsqueda -->
+<div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="searchModalLabel">Buscar Proveedores</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="<?= base_url('admin/proveedores/search') ?>" method="get">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="search" placeholder="Buscar proveedores">
+                        <button type="submit" class="btn btn-primary">Buscar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
 
 
@@ -43,7 +76,7 @@
         <div class="modal-content">
             <span class="close" onclick="closeAddProveedorModal()">&times;</span>
             <h2>Agregar Proveedor</h2>
-            <form id="addProveedorForm" action="<?= base_url('proveedores/store') ?>" method="post">
+            <form id="addProveedorForm" action="<?= base_url('admin/proveedores/store') ?>" method="post">
                 <label for="addProveedorName">Nombre:</label><br>
                 <input type="text" id="addProveedorName" name="nombre" required><br>
                 <label for="addProveedorPhone">Teléfono:</label><br>
@@ -62,7 +95,7 @@
         <div class="modal-content">
             <span class="close" onclick="closeEditProveedorModal()">&times;</span>
             <h2>Editar Proveedor</h2>
-            <form id="editProveedorForm" action="<?= base_url('proveedores/update') ?>" method="post">
+            <form id="editProveedorForm" action="<?= base_url('admin/proveedores/update') ?>" method="post">
                 <input type="hidden" id="editProveedorId" name="idProveedor">
                 <label for="editProveedorName">Nombre:</label><br>
                 <input type="text" id="editProveedorName" name="nombre" required><br>
