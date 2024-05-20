@@ -21,13 +21,25 @@
                         <a class="nav-link" href="<?= base_url('lectura/inicioL') ?>">💻Inicio🦉</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?= base_url('lectura/equiposL') ?>">Equipos
-                            <i class="fas fa-laptop"></i>
+                        <a class="nav-link" href="<?= base_url('lectura/equiposL') ?>">
+                        <i class="fas fa-laptop"></i> Equipos
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?= base_url('lectura/mobiliarioL') ?>">Mobiliario
-                            <i class="fas fa-chair"></i>
+                        <a class="nav-link" href="<?= base_url('lectura/mobiliarioL') ?>">
+                        <i class="fas fa-chair"></i> Mobiliario
+                        </a>
+                        <li class="nav-item">
+                        <a class="nav-link" href="<?= base_url('lectura/acerca') ?>">
+                        <i class="fas fa-info"></i> Acerca del
+                        </a>
+                        <li class="nav-item">
+                        <a class="nav-link" href="<?= base_url('lectura/contacto') ?>">
+                        <i class="fas fa-phone"></i> Contacto
+                        </a>
+                        <li class="nav-item">
+                        <a class="nav-link" href="<?= base_url('lectura/comunidad') ?>">
+                        <i class="fas fa-users"></i> Nuestra comunidad
                         </a>
                     </li>
                     <li class="nav-item">

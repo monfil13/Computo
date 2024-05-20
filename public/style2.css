@@ -142,3 +142,16 @@ button:hover:after {
     border-width: 3px; /* Establecemos el grosor del borde */
     border-color: #2728C0; /* Color del borde */
 }
+
+/* Define el estilo para la tabla con bordes personalizados */
+.table-bordered.custom-border {
+    border-color: #2728C0; /* Color del borde */
+    border-width: 2px; /* Grosor del borde */
+}
+
+/* Define el estilo para las celdas de la tabla */
+.table-bordered.custom-border th,
+.table-bordered.custom-border td {
+    border-color: #2728C0; /* Color del borde */
+    border-width: 2px; /* Grosor del borde */
+}

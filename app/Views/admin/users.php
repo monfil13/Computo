@@ -16,29 +16,39 @@
         <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#searchModal">Buscar</button>
         <a href="<?= base_url('admin/inicio') ?>" class="btn btn-success">Volver al menú</a>
         <h3> </h3>
-        <!-- Contenedor para las tarjetas de usuarios -->
-        <div class="card-container">
-            <!-- Itera sobre los usuarios -->
+        <div class="container">
+    <table class="table table-bordered custom-border">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Teléfono</th>
+                <th>Correo</th>
+                <th>Usuario</th>
+                <th>Rol</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
             <?php foreach ($users as $user) : ?>
-                <div class="card border-primary"> <!-- Agregamos la clase "border-primary" para establecer el color del borde -->
-                    <div class="card-body">
-                        <h5 class="card-title"><?= $user['nombre'] ?></h5>
-                        <p class="card-text">
-                            <strong>Apellido:</strong> <?= $user['apellido'] ?><br>
-                            <strong>Teléfono:</strong> <?= $user['telefono'] ?><br>
-                            <strong>Correo:</strong> <?= $user['correo'] ?><br>
-                            <strong>Usuario:</strong> <?= $user['usuario'] ?><br>
-                            <strong>Contraseña:</strong> <?= $user['contraseña'] ?><br>
-                            <strong>Rol:</strong> <?= $user['rol'] ?>
-                        </p>
-                        <div class="btn-group">
-                            <button onclick="editUserModal(<?= $user['idUsuario'] ?>, '<?= $user['nombre'] ?>', '<?= $user['apellido'] ?>', '<?= $user['telefono'] ?>', '<?= $user['correo'] ?>', '<?= $user['usuario'] ?>','<?= $user['contraseña'] ?>', '<?= $user['rol'] ?>')" class="btn btn-primary">Editar</button>
-                            <a href="<?= base_url('users/delete/' . $user['idUsuario']) ?>" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este usuario?')">Eliminar</a>
-                        </div>
-                    </div>
-                </div>
+                <tr>
+                    <td><?= $user['nombre'] ?></td>
+                    <td><?= $user['apellido'] ?></td>
+                    <td><?= $user['telefono'] ?></td>
+                    <td><?= $user['correo'] ?></td>
+                    <td><?= $user['usuario'] ?></td>
+                    <td><?= $user['rol'] ?></td>
+                    <td>
+                        <button onclick="editUserModal(<?= $user['idUsuario'] ?>, '<?= $user['nombre'] ?>', '<?= $user['apellido'] ?>', '<?= $user['telefono'] ?>', '<?= $user['correo'] ?>', '<?= $user['usuario'] ?>', '<?= $user['rol'] ?>')" class="btn btn-primary">Editar</button>
+                        <a href="<?= base_url('admin/users/delete/' . $user['idUsuario']) ?>" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este usuario?')">Eliminar</a>
+                    </td>
+                </tr>
             <?php endforeach; ?>
-        </div>
+        </tbody>
+    </table>
+</div>
+
+      
         <!-- Paginación -->
         <div class="pagination" style="button-align: center;">
             <?= $pager->links() ?>
@@ -76,7 +86,7 @@
             <div class="modal-content">
                 <span class="close" onclick="closeAddUserModal()">&times;</span>
                 <h2>Agregar Usuario</h2>
-                <form id="addUserForm" action="<?= base_url('users/store') ?>" method="post">
+                <form id="addUserForm" action="<?= base_url('admin/users/store') ?>" method="post">
                     <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" />
                     <label for="addUserName">Nombre:</label><br>
                     <input type="text" id="addUserName" name="nombre" required><br>
@@ -88,8 +98,6 @@
                     <input type="email" id="addUserEmail" name="correo" required><br>
                     <label for="addUserUsername">Usuario:</label><br>
                     <input type="text" id="addUserUsername" name="usuario" required><br>
-                    <label for="addUserPassword">Contraseña:</label><br>
-                    <input type="text" id="addUserPassword" name="contraseña" required><br>
                     <label for="addUserRole">Rol:</label><br>
                     <select id="addUserRole" name="rol" required>
                         <option value="Estudiante">Estudiante</option>
@@ -106,7 +114,7 @@
             <div class="modal-content">
                 <span class="close" onclick="closeEditUserModal()">&times;</span>
                 <h2>Editar Usuario</h2>
-                <form id="editUserForm" action="<?= base_url('users/update') ?>" method="post">
+                <form id="editUserForm" action="<?= base_url('admin/users/update') ?>" method="post">
                     <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" />
                     <input type="hidden" id="editUserId" name="idUsuario">
                     <label for="editUserName">Nombre:</label><br>
@@ -119,8 +127,6 @@
                     <input type="email" id="editUserEmail" name="correo" required><br>
                     <label for="editUserUsername">Usuario:</label><br>
                     <input type="text" id="editUserUsername" name="usuario" required><br>
-                    <label for="editUserPassword">Contraseña:</label><br>
-                    <input type="text" id="editUserPassword" name="contraseña" required><br>
                     <label for="editUserRole">Rol:</label><br>
                     <select id="editUserRole" name="rol" required>
                         <option value="Estudiante">Estudiante</option>
@@ -151,7 +157,6 @@
                 document.getElementById('editUserPhone').value = telefono;
                 document.getElementById('editUserEmail').value = correo;
                 document.getElementById('editUserUsername').value = usuario;
-                document.getElementById('editUserPassword').value = contraseña;
                 document.getElementById('editUserRole').value = rol;
                 document.getElementById('editUserModal').style.display = 'block';
             }

@@ -59,4 +59,23 @@ class HomeLectura extends BaseController
         $session->destroy();
         return redirect()->to(base_url('/'));
     }
+
+    public function info()
+    {
+        echo view('common/navbar3');
+        return view('lectura/acerca');
+    }
+
+    public function contacto()
+    {
+        echo view('common/navbar3');
+        return view('lectura/contacto');
+    }
+
+    public function comunidad()
+    {
+        echo view('common/navbar3');
+        return view('lectura/comunidad');
+    }
+
 }

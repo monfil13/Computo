@@ -17,26 +17,35 @@
         <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#searchModal">Buscar</button>
         <a href="<?= base_url('admin/inicio') ?>" class="btn btn-success">Volver al menú</a>
 <h3> </h3>
-        <!-- Contenedor para las tarjetas de proveedores -->
-        <div class="card-container">
-            <?php foreach ($proveedores as $proveedor): ?>
-                <div class="card border-primary"> <!-- Agregamos la clase "border-primary" para establecer el color del borde -->
-                    <div class="card-body">
-                        <h5 class="card-title"><?= $proveedor['nombre'] ?></h5>
-                        <p class="card-text">
-                            <strong>Teléfono:</strong> <?= $proveedor['telefono'] ?><br>
-                            <strong>Correo:</strong> <?= $proveedor['correo'] ?><br>
-                            <strong>Dirección:</strong> <?= $proveedor['direccion'] ?>
-                        </p>
-                        <div class="btn-group">
-                            <button onclick="editProveedorModal(<?= $proveedor['idProveedor'] ?>, '<?= $proveedor['nombre'] ?>', '<?= $proveedor['telefono'] ?>', '<?= $proveedor['correo'] ?>', '<?= $proveedor['direccion'] ?>')" class="btn btn-primary">Editar</button>
-                            <a href="<?= base_url('admin/proveedores/delete/' . $proveedor['idProveedor']) ?>" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este proveedor?')">Eliminar</a>
-                        </div>
-                    </div>
-                </div>
+<div class="container">
+    <table class="table table-bordered custom-border">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Teléfono</th>
+                <th>Correo</th>
+                <th>Dirección</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($proveedores as $proveedor) : ?>
+                <tr>
+                    <td><?= $proveedor['nombre'] ?></td>
+                    <td><?= $proveedor['telefono'] ?></td>
+                    <td><?= $proveedor['correo'] ?></td>
+                    <td><?= $proveedor['direccion'] ?></td>
+                    <td>
+                        <button onclick="editProveedorModal(<?= $proveedor['idProveedor'] ?>, '<?= $proveedor['nombre'] ?>', '<?= $proveedor['telefono'] ?>', '<?= $proveedor['correo'] ?>', '<?= $proveedor['direccion'] ?>')" class="btn btn-primary">Editar</button>
+                        <a href="<?= base_url('admin/proveedores/delete/' . $proveedor['idProveedor']) ?>" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este proveedor?')">Eliminar</a>
+                    </td>
+                </tr>
             <?php endforeach; ?>
-        </div>
-    </div>
+        </tbody>
+    </table>
+</div>
+       
+
 <!-- Paginación -->
 <div class="pagination" style="button-align: center;">
     <?= $pager->links() ?>

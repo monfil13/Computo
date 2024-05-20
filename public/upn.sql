@@ -1,7 +1,7 @@
 CREATE DATABASE upn;
 USE upn;
 
-CREATE TABLE Users (
+CREATE TABLE users (
     idUsuario INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(30),
     apellido VARCHAR(50),
@@ -15,7 +15,7 @@ CREATE TABLE Users (
     deleted_at DATETIME NULL
 );
 
-CREATE TABLE Equipos (
+CREATE TABLE equipos (
     idEquipo INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nombre TEXT,
     marca TEXT,
@@ -28,7 +28,7 @@ CREATE TABLE Equipos (
     deleted_at DATETIME NULL
 );
 
-CREATE TABLE Mobiliario (
+CREATE TABLE mobiliario (
     idMobiliario INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(30),
     cantidad INT,
@@ -37,10 +37,10 @@ CREATE TABLE Mobiliario (
     created_at DATETIME,
     updated_at DATETIME,
     deleted_at DATETIME,
-    FOREIGN KEY(idProveedor) REFERENCES Proveedores(idProveedor) ON DELETE CASCADE
+    FOREIGN KEY(idProveedor) REFERENCES proveedores(idProveedor) ON DELETE CASCADE
 );
 
-CREATE TABLE Proveedores (
+CREATE TABLE proveedores (
     idProveedor INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(30),
     telefono VARCHAR(10),
@@ -51,7 +51,7 @@ CREATE TABLE Proveedores (
     deleted_at DATETIME
 );
 
-CREATE TABLE Mantenimiento (
+CREATE TABLE mantenimiento (
     idMantenimiento INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     idEquipo INT,
     tipo ENUM('Equipo', 'Dispositivo', 'Mobiliario'),
@@ -62,5 +62,5 @@ CREATE TABLE Mantenimiento (
     created_at DATETIME,
     updated_at DATETIME,
     deleted_at DATETIME,
-    FOREIGN KEY(idEquipo) REFERENCES Equipos(idEquipo) ON DELETE CASCADE
+    FOREIGN KEY(idEquipo) REFERENCES equipos(idEquipo) ON DELETE CASCADE
 );

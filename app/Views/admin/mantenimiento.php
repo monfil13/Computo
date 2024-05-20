@@ -15,29 +15,49 @@
         <button onclick="openAddMantenimientoModal()" class="btn btn-info">Agregar Mantenimiento</button>
         <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#searchModal">Buscar</button>
         <a href="<?= base_url('admin/inicio') ?>" class="btn btn-success">Volver al menú</a>
+<!-- <button onclick="generarReportePDF()" class="btn btn-primary">Generar Reporte PDF</button> -->
+
+<script>
+    // Función para generar el reporte PDF
+    function generarReportePDF() {
+        // Redirecciona a la ruta que generará el reporte PDF
+        window.location.href = "<?= base_url('admin/mantenimiento/generarReportePDF') ?>";
+    }
+</script>
+
         <h2> </h2>
-        <!-- Contenedor para las tarjetas de mantenimiento -->
-        <div class="card-container">
+        <div class="container">
+    <table class="table table-bordered custom-border">
+        <thead>
+            <tr>
+                <th>Equipo</th>
+                <th>Tipo</th>
+                <th>Fecha de Mantenimiento</th>
+                <th>Fecha de Salida</th>
+                <th>Fecha de Ingreso</th>
+                <th>Descripción</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
             <?php foreach ($mantenimiento as $item) : ?>
-                <div class="card border-primary"> <!-- Agregamos la clase "border-primary" para establecer el color del borde -->
-                    <div class="card-body">
-                        <h5 class="card-title"><?= $item['nombreEquipo'] ?></h5>
-                        <p class="card-text">
-                            <strong>Tipo:</strong> <?= $item['tipo'] ?><br>
-                            <strong>Fecha de Mantenimiento:</strong> <?= $item['fechaMantenimiento'] ?><br>
-                            <strong>Fecha de Salida:</strong> <?= $item['fechaSalida'] ?><br>
-                            <strong>Fecha de Ingreso:</strong> <?= $item['fechaIngreso'] ?><br>
-                            <strong>Descripción:</strong> <?= $item['descripcion'] ?>
-                        </p>
-                        <div class="btn-group">
-                            <button onclick="editMantenimientoModal(<?= $item['idMantenimiento'] ?>, <?= $item['idEquipo'] ?>, '<?= $item['tipo'] ?>', '<?= $item['fechaMantenimiento'] ?>', '<?= $item['fechaSalida'] ?>', '<?= $item['fechaIngreso'] ?>', '<?= $item['descripcion'] ?>')" class="btn btn-primary">Editar</button>
-                            <a href="<?= base_url('admin/mantenimiento/delete/' . $item['idMantenimiento']) ?>" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este mantenimiento?')">Eliminar</a>
-                        </div>
-                    </div>
-                </div>
+                <tr>
+                    <td><?= $item['nombreEquipo'] ?></td>
+                    <td><?= $item['tipo'] ?></td>
+                    <td><?= $item['fechaMantenimiento'] ?></td>
+                    <td><?= $item['fechaSalida'] ?></td>
+                    <td><?= $item['fechaIngreso'] ?></td>
+                    <td><?= $item['descripcion'] ?></td>
+                    <td>
+                        <button onclick="editMantenimientoModal(<?= $item['idMantenimiento'] ?>, <?= $item['idEquipo'] ?>, '<?= $item['tipo'] ?>', '<?= $item['fechaMantenimiento'] ?>', '<?= $item['fechaSalida'] ?>', '<?= $item['fechaIngreso'] ?>', '<?= $item['descripcion'] ?>')" class="btn btn-primary">Editar</button>
+                        <a href="<?= base_url('admin/mantenimiento/delete/' . $item['idMantenimiento']) ?>" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este mantenimiento?')">Eliminar</a>
+                    </td>
+                </tr>
             <?php endforeach; ?>
-        </div>
-    </div>
+        </tbody>
+    </table>
+</div>
+
     <!-- Paginación -->
     <div class="pagination" style="button-align: center;">
         <?= $pager->links() ?>

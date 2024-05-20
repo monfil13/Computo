@@ -16,26 +16,34 @@
         <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#searchModal">Buscar</button>
         <a href="<?= base_url('admin/inicio') ?>" class="btn btn-success">Volver al menú</a>
         <h2> </h2>
-        <!-- Contenedor para las tarjetas de mobiliario -->
-        <div class="card-container">
+        <div class="container">
+    <table class="table table-bordered custom-border">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Cantidad</th>
+                <th>Tipo</th>
+                <th>Proveedor</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
             <?php foreach ($mobiliario as $item) : ?>
-                <div class="card border-primary"> <!-- Agregamos la clase "border-primary" para establecer el color del borde -->
-                    <div class="card-body">
-                        <h5 class="card-title"><?= $item['nombre'] ?></h5>
-                        <p class="card-text">
-                            <strong>Cantidad:</strong> <?= $item['cantidad'] ?><br>
-                            <strong>Tipo:</strong> <?= $item['tipo'] ?><br>
-                            <strong>Proveedor:</strong> <?= $item['nombreProveedor'] ?>
-                        </p>
-                        <div class="btn-group">
-                            <button onclick="editMobiliarioModal(<?= $item['idMobiliario'] ?>, '<?= $item['nombre'] ?>', <?= $item['cantidad'] ?>, '<?= $item['tipo'] ?>', <?= $item['idProveedor'] ?>)" class="btn btn-primary">Editar</button>
-                            <a href="<?= base_url('admin/mobiliario/delete/' . $item['idMobiliario']) ?>" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este mobiliario?')">Eliminar</a>
-                        </div>
-                    </div>
-                </div>
+                <tr>
+                    <td><?= $item['nombre'] ?></td>
+                    <td><?= $item['cantidad'] ?></td>
+                    <td><?= $item['tipo'] ?></td>
+                    <td><?= $item['nombreProveedor'] ?></td>
+                    <td>
+                        <button onclick="editMobiliarioModal(<?= $item['idMobiliario'] ?>, '<?= $item['nombre'] ?>', <?= $item['cantidad'] ?>, '<?= $item['tipo'] ?>', <?= $item['idProveedor'] ?>)" class="btn btn-primary">Editar</button>
+                        <a href="<?= base_url('admin/mobiliario/delete/' . $item['idMobiliario']) ?>" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este mobiliario?')">Eliminar</a>
+                    </td>
+                </tr>
             <?php endforeach; ?>
-        </div>
-    </div>
+        </tbody>
+    </table>
+</div>
+
     <!-- Paginación -->
     <div class="pagination" style="button-align: center;">
         <?= $pager->links() ?>

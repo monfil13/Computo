@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Controllers;
-
+use TCPDF;
 use App\Models\MantenimientoModel;
 use App\Models\EquipoModel;
 
@@ -120,4 +120,37 @@ class MantenimientoController extends BaseController
         echo view('common/navbar');
         echo view('admin/mantenimiento', $data);
     }
+
+    public function generarReportePDF()
+    {
+    // Obtén los datos de mantenimiento, por ejemplo, desde el modelo
+    $mantenimientoModel = new MantenimientoModel();
+    $data['mantenimiento'] = $mantenimientoModel->findAll(); // Esto es un ejemplo, ajusta según sea necesario
+
+    $equipoModel = new EquipoModel();
+    $data['equipos'] = $equipoModel->findAll(); // Esto es un ejemplo, ajusta según sea necesario
+
+    // Carga la vista del reporte en PDF en una variable
+$content = view('admin/reporte_mantenimiento_pdf', $data);
+
+
+        // Carga la biblioteca TCPDF
+        $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+    
+        // Establece el nombre del archivo PDF
+        $pdf->SetTitle('Reporte de Mantenimiento');
+    
+        // Agrega una página al PDF
+        $pdf->AddPage();
+    
+        // Carga la vista del reporte en PDF en una variable
+        $content = view('admin/reporte_mantenimiento_pdf');
+    
+        // Agrega el contenido de la vista al PDF
+        $pdf->writeHTML($content, true, false, true, false, '');
+    
+        // Genera el PDF y lo muestra en el navegador
+        $pdf->Output('reporte_mantenimiento.pdf', 'I');
+    }
+
 }

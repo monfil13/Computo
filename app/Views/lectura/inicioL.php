@@ -20,8 +20,11 @@
                 <h1 class="card-title" style="color: #0033a0;">Centro de Cómputo UPN 212</h1>
                 <h3>¿Qué sección desea consultar?</h3>
                 <div class="btn-group" role="group" aria-label="Basic example">
-                    <a class="btn btn-white text-dark border border-dark" href="<?= base_url('lectura/equiposL') ?>">Equipos🖥️</a>
-                    <a class="btn btn-white text-dark border border-dark" href="<?= base_url('lectura/mobiliarioL') ?>">Mobiliario🪑</a>
+                    <a class="btn btn-white text-dark border border-dark" href="<?= base_url('lectura/equiposL') ?>">🖥️ Equipos</a>
+                    <a class="btn btn-white text-dark border border-dark" href="<?= base_url('lectura/mobiliarioL') ?>">🪑 Mobiliario</a>
+                    <a class="btn btn-white text-dark border border-dark" href="<?= base_url('lectura/acerca') ?>">🛈 Acerca de</a>
+                    <a class="btn btn-white text-dark border border-dark" href="<?= base_url('lectura/contacto') ?>">📞 Contacto</a>
+                    <a class="btn btn-white text-dark border border-dark" href="<?= base_url('lectura/contacto') ?>">👥 Nuestra comunidad</a>
                 </div>
                 </nav>
             </div>

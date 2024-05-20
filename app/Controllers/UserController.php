@@ -51,7 +51,6 @@ class UserController extends BaseController
             'telefono' => $this->request->getPost('telefono'),
             'correo' => $this->request->getPost('correo'),
             'usuario' => $this->request->getPost('usuario'),
-            'contraseña' => $this->request->getPost('contraseña'),
             'rol' => $this->request->getPost('rol')
         ];
 
@@ -75,7 +74,6 @@ class UserController extends BaseController
             'telefono' => $this->request->getPost('telefono'),
             'correo' => $this->request->getPost('correo'),
             'usuario' => $this->request->getPost('usuario'),
-            'contraseña' => $this->request->getPost('contraseña'),
             'rol' => $this->request->getPost('rol')
         ];
 
@@ -108,7 +106,6 @@ class UserController extends BaseController
             ->orLike('telefono', $searchTerm)
             ->orLike('correo', $searchTerm)
             ->orLike('usuario', $searchTerm)
-            ->orLike('contraseña', $searchTerm)
             ->orLike('rol', $searchTerm)
             ->paginate(10);
 

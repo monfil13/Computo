@@ -17,28 +17,40 @@
         <a href="<?= base_url('admin/inicio') ?>" class="btn btn-success">Volver al menú</a>
         <h2> </h2>
 
-        <!-- Contenedor para las tarjetas de equipos -->
-        <div class="card-container">
+        <div class="container">
+        <table class="table table-bordered custom-border">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Marca</th>
+                <th>Modelo</th>
+                <th>Descripción</th>
+                <th>Tipo</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
             <?php foreach ($equipos as $equipo) : ?>
-                <div class="card border-primary"> <!-- Agregamos la clase "border-primary" para establecer el color del borde -->
-                    <div class="card-body">
-                        <h5 class="card-title"><?= $equipo['nombre'] ?></h5>
-                        <p class="card-text">
-                            <strong>Marca:</strong> <?= $equipo['marca'] ?><br>
-                            <strong>Modelo:</strong> <?= $equipo['modelo'] ?><br>
-                            <strong>Descripción:</strong> <?= $equipo['descripcion'] ?><br>
-                            <strong>Tipo:</strong> <?= $equipo['tipo'] ?><br>
-                            <strong>Estado:</strong> <?= $equipo['estado'] ?>
-                        </p>
-                        <div class="btn-group">
+                <tr>
+                    <td><?= $equipo['nombre'] ?></td>
+                    <td><?= $equipo['marca'] ?></td>
+                    <td><?= $equipo['modelo'] ?></td>
+                    <td><?= $equipo['descripcion'] ?></td>
+                    <td><?= $equipo['tipo'] ?></td>
+                    <td><?= $equipo['estado'] ?></td>
+                    <td>
+                        <div class="btn-group" role="group">
                             <button onclick="editEquipoModal(<?= $equipo['idEquipo'] ?>, '<?= $equipo['nombre'] ?>', '<?= $equipo['marca'] ?>', '<?= $equipo['modelo'] ?>', '<?= $equipo['descripcion'] ?>', '<?= $equipo['tipo'] ?>', '<?= $equipo['estado'] ?>')" class="btn btn-primary">Editar</button>
                             <a href="<?= base_url('admin/equipos/delete/' . $equipo['idEquipo']) ?>" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este equipo?')">Eliminar</a>
                         </div>
-                    </div>
-                </div>
+                    </td>
+                </tr>
             <?php endforeach; ?>
-        </div>
-    </div>
+        </tbody>
+    </table>
+</div>
+
     <!-- Paginación -->
     <div class="pagination" style="button-align: center;">
         <?= $pager->links() ?>

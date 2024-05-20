@@ -50,6 +50,7 @@ $routes->post('admin/mobiliario/store', 'MobiliarioController::store');
 $routes->post('admin/mobiliario/update', 'MobiliarioController::update');
 $routes->get('admin/mobiliario/delete/(:num)', 'MobiliarioController::delete/$1');
 $routes->get('admin/mobiliario/search', 'MobiliarioController::search');
+$routes->get('admin/mantenimiento/generarReportePDF', 'MantenimientoController::generarReportePDF');
 
 
 //RUTAS DE USUARIOS DE LECTURA
@@ -60,7 +61,9 @@ $routes->get('lectura/inicioL', 'HomeLectura::ingresar');
 $routes->post('/login', 'HomeLectura::login');
 $routes->get('/salir', 'HomeLectura::salir');
 
-
+$routes->get('lectura/acerca', 'HomeLectura::info');
+$routes->get('lectura/contacto', 'HomeLectura::contacto');
+$routes->get('lectura/comunidad', 'HomeLectura::comunidad');
 $routes->get('lectura/equiposL', 'EquipoController::indexL');
 $routes->get('lectura/equiposL/searchL', 'EquipoController::searchL');
 $routes->get('lectura/mobiliarioL', 'MobiliarioController::indexL');
